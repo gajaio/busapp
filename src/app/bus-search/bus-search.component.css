@@ -1,0 +1,39 @@
+.example-container {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .example-container > * {
+    width: 100%;
+  }
+  
+  .example-container form {
+    margin-bottom: 20px;
+  }
+  
+  .example-container form > * {
+    margin: 5px 0;
+  }
+  
+  .example-container .mat-radio-button {
+    margin: 0 5px;
+  }
+
+.full-width{
+    width: 98% !important;
+  }
+
+.container{
+  margin: auto 50px;
+}
+
+.travel-info{
+  position: relative;
+  text-align: center !important;
+}
+
+.head-data{
+  text-align: center; 
+  color: firebrick;
+  
+}

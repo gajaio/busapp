@@ -1,0 +1,116 @@
+<div class="container">
+  <mat-grid-list cols="7" rowHeight="100px">
+    <mat-grid-tile colspan="2">
+      <mat-form-field class="full-width">
+        <input type="text" placeholder="FROM" aria-label="State" matInput [formControl]="fromControl" [matAutocomplete]="auto">
+        <mat-autocomplete #auto="matAutocomplete">
+          <mat-option *ngFor="let src of fromList" [value]="src.Name" (onSelectionChange)="loadSrc(src)">
+            {{ src.Name }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile colspan="2">
+      <mat-form-field class="full-width">
+        <input type="text" placeholder="TO" aria-label="State" matInput [formControl]="toControl" [matAutocomplete]="auto1">
+        <mat-autocomplete #auto1="matAutocomplete">
+          <mat-option *ngFor="let dst of toList" [value]="dst.Name" (onSelectionChange)="loadDst(dst)">
+            {{ dst.Name }}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile colspan="2">
+      <mat-form-field class="full-width">
+        <input matInput [matDatepicker]="picker" placeholder="Choose a date" [(ngModel)]="doj" readonly>
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker disabled=false></mat-datepicker>
+      </mat-form-field>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <button mat-icon-button (click)="searchBuses()">
+        <mat-icon aria-label="" style="font-size: 36px; color: blueviolet;">search</mat-icon>
+      </button>
+    </mat-grid-tile>
+  </mat-grid-list>
+
+  <div *ngIf="searchData['BookingData']">
+    <!-- Search Results Here -->
+    <mat-grid-list cols="6" rowHeight="64px">
+      <!--style="background-color: rgb(233, 232, 232);">-->
+      <mat-grid-tile>
+        <div>
+          <mat-icon aria-label="" style="font-size: 36px; color: indigo;">directions_bus</mat-icon>
+          <mat-icon aria-label="" style="font-size: 16px; color: grey; position: relative;top: -20px;">location_on</mat-icon>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile colspan="4">
+        <div class="mat-option" style="color: rgb(206, 10, 59);">
+          <span>{{ srcLocation.Name }}</span>&nbsp;&nbsp;&nbsp;
+          <mat-icon aria-label="" style="font-size: 24px;">trending_flat</mat-icon>
+          <span>{{ dstLocation.Name }}</span>
+        </div>
+      </mat-grid-tile>
+      <mat-grid-tile class="mat-option" style="color: indigo;">
+        {{dateOfJourney}}
+      </mat-grid-tile>
+    </mat-grid-list>
+    <mat-divider></mat-divider>
+    <div *ngFor="let rin of listBuses">
+      <mat-card class="example-card" *ngFor="let bus of rin['InvList']">
+        <mat-card-header>
+          <div mat-card-avatar>
+            <mat-icon aria-label="" style="font-size: 36px; color: indigo;">directions_bus</mat-icon>
+          </div>
+          <mat-card-title>{{ bus.Tvs }}</mat-card-title>
+          <mat-card-subtitle>{{ bus.BsTp }}</mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="0">
+
+            <div class="item item-1" fxFlex="35%" style="color: indigo;">
+              {{ bus.ArivalTime }}&nbsp;&nbsp;
+              <i class="material-icons" style="font-size: 20px;">trending_flat</i>{{ bus.DepTime }}
+            </div>
+            <div class="item item2" fxFlex="10%" style="color: indigo;">
+              <mat-chip-list>
+                <mat-chip selected="true" [style.background-color]="getColor(bus.Rtg.totRt)">
+                  {{ bus.Rtg.totRt > -1 ? bus.Rtg.totRt : 'NA' }}
+                </mat-chip>
+              </mat-chip-list>
+            </div>
+            <div class="item item3" fxFlex="10%" [ngStyle]="{'color': bus.NSA == 0 ? 'red': 'indigo'}">
+              <i class="material-icons" style="font-size: 20px;">airline_seat_recline_extra</i>
+              <span *ngIf="bus.IsSeatLayoutAvailable == true">
+                <b>{{ bus.NSA }}</b>
+              </span>
+            </div>
+            <div class="item item4" fxFlex="15%" style="color: indigo;">
+              <span *ngIf="bus.IsSeatLayoutAvailable == true">
+                <b>INR {{ bus.MinFare }}</b>
+              </span>
+            </div>
+            <div class="item item5" fxFlex="30%" style="color: indigo;">
+              <mat-expansion-panel>
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Amenities
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <mat-list>
+                  <mat-list-item *ngFor="let ament of bus.Ament" style="font-size: 12px; color: indianred">
+                    {{ searchData['Aminities'][ament] }}
+                  </mat-list-item>
+                </mat-list>
+              </mat-expansion-panel>
+
+            </div>
+            <div class="item item6" fxFlex="15%" style="color: indigo;">
+              <button mat-raised-button color="primary">Book Seats</button>
+            </div>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>
