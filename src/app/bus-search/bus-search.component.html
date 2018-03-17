@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" style="z-index: 0">
   <mat-grid-list cols="7" rowHeight="100px">
     <mat-grid-tile colspan="2">
       <mat-form-field class="full-width">
@@ -37,7 +37,6 @@
   <div *ngIf="searchData['BookingData']">
     <!-- Search Results Here -->
     <mat-grid-list cols="6" rowHeight="64px">
-      <!--style="background-color: rgb(233, 232, 232);">-->
       <mat-grid-tile>
         <div>
           <mat-icon aria-label="" style="font-size: 36px; color: indigo;">directions_bus</mat-icon>
@@ -69,8 +68,8 @@
           <div class="container" fxLayout fxLayout.xs="column" fxLayoutAlign="center" fxLayoutGap="10px" fxLayoutGap.xs="0">
 
             <div class="item item-1" fxFlex="35%" style="color: indigo;">
-              {{ bus.ArivalTime }}&nbsp;&nbsp;
-              <i class="material-icons" style="font-size: 20px;">trending_flat</i>{{ bus.DepTime }}
+              {{ bus.ArivalTime.substring(10) }}&nbsp;&nbsp;
+              <i class="material-icons" style="font-size: 15px;">trending_flat</i>&nbsp;&nbsp;{{ bus.DepTime.substring(10) }}
             </div>
             <div class="item item2" fxFlex="10%" style="color: indigo;">
               <mat-chip-list>

@@ -90,5 +90,4 @@ export class BusSearchComponent {
       return '#009688';
     }
   }
-
 }
