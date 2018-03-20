@@ -90,16 +90,18 @@
               </span>
             </div>
             <div class="item item5" fxFlex="30%" style="color: indigo;">
-              <mat-expansion-panel>
+              <mat-expansion-panel style="border: none !important">
                 <mat-expansion-panel-header>
                   <mat-panel-title>
                     Amenities
                   </mat-panel-title>
                 </mat-expansion-panel-header>
                 <mat-list>
-                  <mat-list-item *ngFor="let ament of bus.Ament" style="font-size: 12px; color: indianred">
+                  <div *ngFor="let ament of bus.Ament">
+                  <mat-list-item *ngIf="searchData['Aminities'][ament]" style="font-size: 12px; color: indianred">
                     {{ searchData['Aminities'][ament] }}
                   </mat-list-item>
+                </div>
                 </mat-list>
               </mat-expansion-panel>
 
