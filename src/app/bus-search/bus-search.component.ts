@@ -46,7 +46,6 @@ export class BusSearchComponent {
       data => {
         this.searchData = data;
         this.listBuses = data['SRD'][0]['RIN'];
-        console.log(this.listBuses);
       }
     );
     
@@ -74,8 +73,6 @@ export class BusSearchComponent {
   }
 
   getColor(rating: number): string{
-    console.log(rating);
-    
     if(rating <= -1){
       return 'darkgrey';
     }else if(rating >=0 && rating <=2){
