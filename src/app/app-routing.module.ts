@@ -1,3 +1,4 @@
+/* Author : Srikanth Modegunta */
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { BusSearchComponent } from './bus-search/bus-search.component';
